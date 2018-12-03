@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     id() {
-      return 0
+      return this.$route.params.id
     }
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
       axios
         .get('http://localhost:3004/users')
         .then(response => {
-          this.user = response.data.find(userObj => userObj.id === this.id)
+          this.user = response.data.find(userObj => userObj.id === parseInt(this.id, 10))
         })
         .catch(error => console.error(error))
     }
