@@ -1,16 +1,16 @@
 <template>
   <ul class="list-group">
     <li class="list-group-item">
-      <label>Имя</label> <input type="text" class="form-control" v-model="user.firstName" />
+      <label>Имя</label> <input type="text" class="form-control" v-model="localUser.firstName" />
     </li>
     <li class="list-group-item">
-      <label>Фамилия</label> <input type="text" class="form-control" v-model="user.lastName" />
+      <label>Фамилия</label> <input type="text" class="form-control" v-model="localUser.lastName" />
     </li>
     <li class="list-group-item">
-      <label>Email</label> <input type="text" class="form-control" v-model="user.email" />
+      <label>Email</label> <input type="text" class="form-control" v-model="localUser.email" />
     </li>
     <li class="list-group-item">
-      <label>Телефон</label> <input type="text" class="form-control" v-model="user.phone" />
+      <label>Телефон</label> <input type="text" class="form-control" v-model="localUser.phone" />
     </li>
   </ul>
 </template>
@@ -25,16 +25,16 @@ export default {
     }
   },
   data: () => ({
-    editedUser: null
+    localUser: null
   }),
-  mounted() {
-    this.editedUser = Object.assign({}, this.user)
+  created() {
+    this.localUser = Object.assign({}, this.user)
   },
   watch: {
-    editedUser: {
+    localUser: {
       deep: true,
       handler() {
-        this.$emit('userEdited', this.editedUser)
+        this.$emit('userEdited', this.localUser)
       }
     }
   }
