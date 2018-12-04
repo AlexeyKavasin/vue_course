@@ -24,10 +24,15 @@ export default {
   mounted() {
     this.loadUsers()
   },
+  computed: {
+    url() {
+      return 'http://localhost:3004'
+    }
+  },
   methods: {
     loadUsers() {
       axios
-        .get('http://localhost:3004/users')
+        .get(`${this.url}/users`)
         .then(response => {
           this.users = response.data
         })

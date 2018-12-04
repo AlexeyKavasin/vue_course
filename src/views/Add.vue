@@ -1,20 +1,22 @@
 <template>
   <div>
     <h3>Добавление пользователя</h3>
-    <user-form :user="user"></user-form>
+    <user-form :user="user" @input="value => (user = value)"> </user-form><br />
+    <button type="button" class="btn btn-primary" @click="saveNewUser">Сохранить</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import UserForm from '@/components/UserForm.vue'
 
-const emptyUserObj = {
+const defaultUser = {
   id: 0,
   isActive: false,
-  balance: '',
-  picture: '',
+  balance: '$0.00',
+  picture: 'http://placehold.it/128x128',
   age: 0,
-  accessLevel: '',
+  accessLevel: 'user',
   firstName: '',
   lastName: '',
   company: '',
@@ -22,7 +24,7 @@ const emptyUserObj = {
   phone: '',
   address: '',
   about: '',
-  registered: ''
+  registered: `new Date().toLocaleDateString()`
 }
 
 export default {
@@ -31,14 +33,29 @@ export default {
     'user-form': UserForm
   },
   data: () => ({
-    user: null
+    user: defaultUser
   }),
-  created() {
-    this.loadDefaultForm()
+  computed: {
+    url() {
+      return `http://localhost:3004/users/`
+    }
+  },
+  mounted() {
+    this.loadForm()
   },
   methods: {
-    loadDefaultForm() {
-      this.user = Object.assign({}, emptyUserObj)
+    loadForm() {
+      this.user = Object.assign({}, defaultUser)
+    },
+    saveNewUser() {
+      this.user.registered = new Date().toLocaleDateString()
+
+      axios
+        .post(this.url, this.user)
+        .then(() => {
+          this.$router.push('/users')
+        })
+        .catch(error => console.error(error))
     }
   }
 }

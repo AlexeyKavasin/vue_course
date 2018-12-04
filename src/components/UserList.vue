@@ -2,15 +2,17 @@
   <table class="table table-hover" id="user-table">
     <tr>
       <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Balance</th>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th>Баланс</th>
       <th>Email</th>
-      <th>Phone</th>
-      <th>Registered</th>
+      <th>Телефон</th>
+      <th>Зарегистрирован</th>
     </tr>
     <tr v-for="user in users" :key="user.id">
-      <td>{{ user.id }}</td>
+      <td>
+        <router-link :to="'/edit/' + user.id"> {{ user.id }} </router-link>
+      </td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>
       <td>{{ user.balance }}</td>
@@ -19,7 +21,7 @@
       <td>{{ user.registered }}</td>
     </tr>
     <tr>
-      <td colspan="6">Всего пользователей: {{ usersQuantity }}</td>
+      <td colspan="7">Всего пользователей: {{ usersQuantity }}</td>
     </tr>
   </table>
 </template>

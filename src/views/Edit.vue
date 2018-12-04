@@ -2,7 +2,12 @@
   <div>
     <h3>Редактирование пользователя</h3>
     <div v-if="user === null" class="alert alert-warning">Загрузка...</div>
-    <user-form v-else :user="user"></user-form>
+    <user-form v-else :user="user" @input="value => (user = value)"> </user-form><br />
+
+    <button type="button" class="btn btn-primary" @click="saveUser">Сохранить</button><br /><br />
+    <button type="button" class="btn btn-secondary" @click="deleteUser">
+      Удалить пользователя
+    </button>
   </div>
 </template>
 
@@ -25,15 +30,34 @@ export default {
   },
   computed: {
     id() {
-      return this.$route.params.id
+      return Number(this.$route.params.id)
+    },
+    url() {
+      return `http://localhost:3004/users/${this.id}`
     }
   },
   methods: {
     loadUser() {
       axios
-        .get('http://localhost:3004/users')
+        .get(`${this.url}`)
         .then(response => {
-          this.user = response.data.find(userObj => userObj.id === parseInt(this.id, 10))
+          this.user = response.data
+        })
+        .catch(error => console.error(error))
+    },
+    saveUser() {
+      axios
+        .patch(this.url, this.user)
+        .then(() => {
+          this.$router.push('/users')
+        })
+        .catch(error => console.error(error))
+    },
+    deleteUser() {
+      axios
+        .delete(this.url, this.user)
+        .then(() => {
+          this.$router.push('/users')
         })
         .catch(error => console.error(error))
     }
