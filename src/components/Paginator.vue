@@ -1,7 +1,12 @@
 <template>
   <ul class="pagination">
-    <li v-for="page in pages" :key="page">
-      <a href="#" @click.prevent="selectPage(page)"> {{ page }} </a>
+    <li
+      class="page-item"
+      v-for="item in pages"
+      :key="item"
+      :class="{ active: item === currentPage }"
+    >
+      <a href="#" class="page-link" @click.prevent="selectPage(item)"> {{ item }} </a>
     </li>
   </ul>
 </template>
@@ -9,8 +14,11 @@
 <script>
 export default {
   name: 'Paginator',
+  model: {
+    prop: 'currentPage'
+  },
   props: {
-    page: {
+    currentPage: {
       type: Number,
       required: true
     },

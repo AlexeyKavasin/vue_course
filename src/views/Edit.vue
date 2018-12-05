@@ -13,12 +13,11 @@
 
 <script>
 import axios from 'axios'
-import UserForm from '@/components/UserForm.vue'
 
 export default {
   name: 'EditUserPage',
   components: {
-    'user-form': UserForm
+    'user-form': () => import('@/components/UserForm.vue')
   },
   data: () => {
     return {

@@ -8,7 +8,6 @@
 
 <script>
 import axios from 'axios'
-import UserForm from '@/components/UserForm.vue'
 
 const defaultUser = {
   id: 0,
@@ -30,7 +29,7 @@ const defaultUser = {
 export default {
   name: 'AddUserPage',
   components: {
-    'user-form': UserForm
+    'user-form': () => import('@/components/UserForm.vue')
   },
   data: () => ({
     user: defaultUser

@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <rows-setter v-model="rowsPerPage" />
     <table class="table table-hover" id="user-table">
       <tr>
         <th>#</th>
@@ -10,7 +11,7 @@
         <th>Телефон</th>
         <th>Зарегистрирован</th>
       </tr>
-      <tr v-for="user in users" :key="user.id">
+      <tr v-for="user in filteredUsers" :key="user.id">
         <td>
           <router-link :to="'/edit/' + user.id"> {{ user.id }} </router-link>
         </td>
@@ -21,28 +22,27 @@
         <td>{{ user.phone }}</td>
         <td>{{ user.registered }}</td>
       </tr>
-      <tr>
-        <td colspan="7">Всего пользователей: {{ usersQuantity }}</td>
-      </tr>
     </table>
 
-    <paginator v-model.number="page" :rows-per-page="rowsPerPage" :total-rows="usersQuantity">
-      Выбрана страница {{ page }}
-    </paginator>
+    <div>Всего пользователей: {{ usersQuantity }}</div>
+
+    <div>
+      Выбрана страница: <b>{{ currentPage }}</b>
+      <paginator v-model="currentPage" :rows-per-page="rowsPerPage" :total-rows="usersQuantity" />
+    </div>
   </div>
 </template>
 
 <script>
-import Paginator from '@/components/Paginator.vue'
-
 export default {
   name: 'UserList',
   components: {
-    Paginator
+    paginator: () => import('@/components/Paginator.vue'),
+    'rows-setter': () => import('@/components/RowsSetter.vue')
   },
   data: () => ({
     rowsPerPage: 5,
-    page: 1
+    currentPage: 1
   }),
   props: {
     users: {
@@ -53,6 +53,14 @@ export default {
   computed: {
     usersQuantity() {
       return this.users.length
+    },
+    filteredUsers() {
+      const start = (this.currentPage - 1) * this.rowsPerPage
+      const finish = this.currentPage * this.rowsPerPage - 1
+
+      return this.users.filter((user, index) => {
+        if (index >= start && index <= finish) return user
+      })
     }
   }
 }
