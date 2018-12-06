@@ -3,7 +3,7 @@
     <h3>Список пользователей</h3>
 
     <div v-if="!users.length" class="alert alert-warning">Загрузка...</div>
-    <user-list v-else :users="users"></user-list>
+    <smart-table v-else :users="users"></smart-table>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import axios from 'axios'
 export default {
   name: 'UsersPage',
   components: {
-    'user-list': () => import('@/components/UserList.vue')
+    'smart-table': () => import('@/components/SmartTable.vue')
   },
   data() {
     return {

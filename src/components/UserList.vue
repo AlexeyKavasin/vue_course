@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <rows-setter v-model="rowsPerPage" />
-    <table class="table table-hover" id="user-table">
+    <table class="table table-hover">
       <tr>
         <th>#</th>
         <th>Имя</th>
@@ -45,20 +45,20 @@ export default {
     currentPage: 1
   }),
   props: {
-    users: {
+    list: {
       type: Array,
       required: true
     }
   },
   computed: {
     usersQuantity() {
-      return this.users.length
+      return this.list.length
     },
     filteredUsers() {
       const start = (this.currentPage - 1) * this.rowsPerPage
       const finish = this.currentPage * this.rowsPerPage - 1
 
-      return this.users.filter((user, index) => {
+      return this.list.filter((user, index) => {
         if (index >= start && index <= finish) return user
       })
     }
