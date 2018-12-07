@@ -48,11 +48,14 @@ export default {
     },
     saveNewUser() {
       this.user.registered = new Date().toLocaleDateString()
+      let usersListLength = axios
+        .get(this.url)
+        .then(response => (usersListLength = response.data.length))
 
       axios
         .post(this.url, this.user)
         .then(() => {
-          this.$router.push('/users')
+          this.$router.push(`/edit/${usersListLength}`)
         })
         .catch(error => console.error(error))
     }

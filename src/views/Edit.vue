@@ -1,9 +1,9 @@
 <template>
   <div>
     <h3>Редактирование пользователя</h3>
+    <br />
     <div v-if="user === null" class="alert alert-warning">Загрузка...</div>
     <user-form v-else :user="user" @input="value => (user = value)"> </user-form><br />
-
     <button type="button" class="btn btn-primary" @click="saveUser">Сохранить</button><br /><br />
     <button type="button" class="btn btn-secondary" @click="deleteUser">
       Удалить пользователя
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     id() {
-      return Number(this.$route.params.id)
+      return parseInt(this.$route.params.id, 10)
     },
     url() {
       return `http://localhost:3004/users/${this.id}`
@@ -52,6 +52,9 @@ export default {
         })
         .catch(error => console.error(error))
     },
+    nextUser() {
+      return this.$router.push('/edit/' + (this.id + 1))
+    },
     deleteUser() {
       axios
         .delete(this.url, this.user)
@@ -60,6 +63,9 @@ export default {
         })
         .catch(error => console.error(error))
     }
+  },
+  watch: {
+    $route: 'loadUser'
   }
 }
 </script>

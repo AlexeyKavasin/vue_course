@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <rows-setter v-model="rowsPerPage" />
+  <div>
+    <rows-setter v-model="rowsPerPage" /><br /><br />
 
     <div><user-list :fullList="users" :filteredList="filteredUsers"> </user-list></div>
 
