@@ -14,7 +14,7 @@ const defaultUser = {
   isActive: false,
   balance: '$0.00',
   picture: 'http://placehold.it/128x128',
-  age: 0,
+  birthDate: '',
   accessLevel: 'user',
   firstName: '',
   lastName: '',

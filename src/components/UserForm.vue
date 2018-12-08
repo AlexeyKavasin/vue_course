@@ -6,8 +6,8 @@
     <li class="list-group-item">
       <label>Фамилия</label> <input type="text" class="form-control" v-model="localUser.lastName" />
     </li>
-    <li class="list-group-item" v-if="!$route.params.id">
-      <label>Возраст</label> <input type="number" class="form-control" v-model="localUser.age" />
+    <li class="list-group-item">
+      <label>Дата рождения</label> <datepicker v-model="localUser.birthDate" />
     </li>
     <li class="list-group-item">
       <label>Email</label> <input type="email" class="form-control" v-model="localUser.email" />
@@ -36,6 +36,9 @@ export default {
   name: 'UserForm',
   model: {
     prop: 'user'
+  },
+  components: {
+    datepicker: () => import('@/components/Datepicker.vue')
   },
   props: {
     user: {
