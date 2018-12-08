@@ -22,7 +22,8 @@
       <label>Компания</label> <input type="text" class="form-control" v-model="localUser.company" />
     </li>
     <li class="list-group-item">
-      <label>О себе</label> <textarea class="form-control" v-model="localUser.about"></textarea>
+      <label>О себе</label>
+      <vue-editor v-model="localUser.about"></vue-editor>
     </li>
     <li class="list-group-item" v-if="!$route.params.id">
       <label>Активен</label>
@@ -32,13 +33,16 @@
 </template>
 
 <script>
+import { VueEditor } from 'vue2-editor'
+
 export default {
   name: 'UserForm',
   model: {
     prop: 'user'
   },
   components: {
-    datepicker: () => import('@/components/Datepicker.vue')
+    datepicker: () => import('@/components/Datepicker.vue'),
+    'vue-editor': VueEditor
   },
   props: {
     user: {

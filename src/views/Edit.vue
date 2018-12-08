@@ -52,9 +52,6 @@ export default {
         })
         .catch(error => console.error(error))
     },
-    nextUser() {
-      return this.$router.push('/edit/' + (this.id + 1))
-    },
     deleteUser() {
       axios
         .delete(this.url, this.user)

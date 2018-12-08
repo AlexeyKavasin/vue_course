@@ -32,7 +32,8 @@ export default {
     'user-form': () => import('@/components/UserForm.vue')
   },
   data: () => ({
-    user: defaultUser
+    user: defaultUser,
+    usersListLength: null
   }),
   computed: {
     url() {
@@ -48,14 +49,14 @@ export default {
     },
     saveNewUser() {
       this.user.registered = new Date().toLocaleDateString()
-      let usersListLength = axios
-        .get(this.url)
-        .then(response => (usersListLength = response.data.length))
+      axios.get(this.url).then(response => {
+        this.usersListLength = response.data.length
+      })
 
       axios
         .post(this.url, this.user)
         .then(() => {
-          this.$router.push(`/edit/${usersListLength}`)
+          this.$router.push(`/edit/${this.usersListLength}`)
         })
         .catch(error => console.error(error))
     }

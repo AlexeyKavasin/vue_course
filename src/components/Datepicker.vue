@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <label class="calendar-wrapper">
-      <input type="text" class="form-control" ref="calendar" :value="value" />
-    </label>
-  </div>
+  <div><input type="text" class="form-control" ref="calendar" :value="date" /></div>
 </template>
 
 <script>
@@ -12,8 +8,11 @@ import 'flatpickr/dist/flatpickr.css'
 
 export default {
   name: 'Datepicker',
+  model: {
+    prop: 'date'
+  },
   props: {
-    value: {
+    date: {
       type: String,
       required: true
     }
@@ -22,7 +21,7 @@ export default {
     fp: null
   }),
   watch: {
-    value: 'updateDatePicker'
+    date: 'updateDatePicker'
   },
   mounted() {
     this.fp = flatpickr(this.$refs.calendar, {
@@ -38,16 +37,9 @@ export default {
   methods: {
     updateDatePicker() {
       if (this.fp) {
-        this.fp.setDate(this.value)
+        this.fp.setDate(this.date)
       }
     }
   }
 }
 </script>
-
-<style>
-.calendar-wrapper {
-  display: flex;
-  justify-content: flex-start;
-}
-</style>
