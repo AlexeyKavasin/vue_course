@@ -1,8 +1,19 @@
 <template>
   <div>
-    <rows-setter v-model="rowsPerPage" /><br /><br />
+    <div>Всего пользователей: {{ usersQuantity }}</div>
+    <rows-setter v-model="rowsPerPage" />
 
-    <div><user-list :fullList="users" :filteredList="filteredUsers"> </user-list></div>
+    <table class="table table-striped">
+      <thead>
+        <slot name="header"></slot>
+      </thead>
+
+      <tbody>
+        <tr v-for="user in filteredUsers" :key="user.id">
+          <slot name="row" v-bind="user"></slot>
+        </tr>
+      </tbody>
+    </table>
 
     <div>
       Выбрана страница: <b>{{ currentPage }}</b>
@@ -15,7 +26,6 @@
 export default {
   name: 'SmartTable',
   components: {
-    'user-list': () => import('@/components/UserList.vue'),
     'rows-setter': () => import('@/components/RowsSetter.vue'),
     paginator: () => import('@/components/Paginator.vue')
   },
@@ -31,6 +41,9 @@ export default {
     }
   },
   computed: {
+    usersQuantity() {
+      return this.users.length
+    },
     filteredUsers() {
       const start = (this.currentPage - 1) * this.rowsPerPage
       const finish = this.currentPage * this.rowsPerPage - 1

@@ -15,6 +15,10 @@ export default new Router({
       component: () => import('@/views/Users.vue')
     },
     {
+      path: '/phonebook',
+      component: () => import('@/views/PhoneBook.vue')
+    },
+    {
       path: '/edit/:id',
       component: () => import('@/views/Edit.vue')
     },
