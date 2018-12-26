@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'UsersPage',
   components: {
@@ -44,21 +42,9 @@ export default {
     }
   },
   mounted() {
-    this.loadUsers()
-  },
-  computed: {
-    url() {
-      return 'http://localhost:3004'
-    }
-  },
-  methods: {
-    loadUsers() {
-      axios
-        .get(`${this.url}/users`)
-        .then(response => {
-          this.users = response.data
-        })
-        .catch(error => console.error(error))
+    if (!this.$store.state.users.length) {
+      this.$store.dispatch('loadUsers')
+      console.log(this.users, this.$store.state.users)
     }
   }
 }

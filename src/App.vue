@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Vue App</a>
+      <a class="navbar-brand" href="#">{{ $store.state.title }}</a>
       <ul class="navbar-nav mr-auto">
         <router-link tag="li" class="nav-item" to="/" exact>
           <a class="nav-link">Главная</a>
