@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">{{ $store.state.title }}</a>
+      <a class="navbar-brand" href="#">{{ title }}</a>
       <ul class="navbar-nav mr-auto">
         <router-link tag="li" class="nav-item" to="/" exact>
           <a class="nav-link">Главная</a>
@@ -22,8 +22,19 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'app',
+  computed: {
+    title() {
+      return this.$store.state.appTitle
+    }
+  }
+}
+</script>
+
 <style>
 #app {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 </style>
