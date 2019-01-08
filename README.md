@@ -1,4 +1,4 @@
-# vue_course
+# Vue SmartTable
 
 ## Project setup
 ```
